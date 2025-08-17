@@ -10,14 +10,14 @@ export default function WeatherCard() {
       sx={{
         minWidth: 375,
         borderRadius: "20px",
-        backgroundColor: "rgba(222, 222, 222, 1)",
+        backgroundColor: "rgba(183, 175, 137, 1)",
       }}
       variant="outlined"
     >
       <CardContent sx={{ padding: "16px" }}>
         <Header />
         <Divider
-          sx={{ borderBottomWidth: 1.5, borderColor: "#aaaaaaff", my: 0.5 }}
+          sx={{ borderBottomWidth: 1.5, borderColor: "#5b5b5bff", my: 0.5 }}
         />
         <Info />
       </CardContent>
