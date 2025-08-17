@@ -1,11 +1,13 @@
 import CloudIcon from "@mui/icons-material/Cloud";
-import ThunderstormIcon from "@mui/icons-material/Thunderstorm";
 import { useContext } from "react";
 import TempContext from "../../contexts/TempContext";
+import { useTranslation } from "react-i18next";
 export default function Header() {
-  const temp = useContext(TempContext);
+  const { t } = useTranslation();
+  const { temp, lang } = useContext(TempContext);
   return (
     <div
+      dir={lang === "ar" ? "rtl" : "ltr"}
       style={{
         display: "flex",
         justifyContent: "space-between",
@@ -26,13 +28,13 @@ export default function Header() {
           <h1 style={{ fontSize: "56px", margin: 0, lineHeight: 1 }}>
             {temp.num}
           </h1>
-          <img src={temp.icon} style={{ height: "60px" }} />
+          <img src={temp.icon} style={{ height: "60px" }} alt="" />
         </div>
         <p style={{ margin: "4px 0", fontSize: "14px", color: "#555" }}>
-          {temp.description}
+          {t(temp.description)}
         </p>
         <p style={{ margin: "2px 0", fontSize: "13px", color: "#555" }}>
-          min:{temp.min} max:{temp.max}
+          {t("min")} : {temp.min} | {t("max")} : {temp.max}
         </p>
       </div>
       <div>

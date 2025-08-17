@@ -6,12 +6,18 @@ import axios from "axios";
 import "./App.css";
 import TempContext from "./contexts/TempContext";
 import { useEffect, useState } from "react";
+import moment from "moment";
+import "moment/min/locales";
+
+import { useTranslation } from "react-i18next";
+
 const theme = createTheme({
   typography: {
     fontFamily: ["Playsans"],
   },
 });
 let cancel = null;
+
 function App() {
   const [temp, setTemp] = useState({
     num: null,
@@ -20,6 +26,9 @@ function App() {
     max: null,
     icon: null,
   });
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState("");
+
   useEffect(() => {
     axios
       .get(
@@ -45,10 +54,21 @@ function App() {
       cancel();
     };
   }, []);
+  function handleLanguague() {
+    if (lang === "ar") {
+      i18n.changeLanguage("en");
+      moment.locale("en");
+      setLang("en");
+    } else {
+      i18n.changeLanguage("ar");
+      moment.locale("ar");
+      setLang("ar");
+    }
+  }
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <TempContext.Provider value={temp}>
+        <TempContext.Provider value={{ temp, lang }}>
           <Container
             fixed
             style={{
@@ -59,14 +79,14 @@ function App() {
               flexDirection: "column",
             }}
           >
-            <div>
+            <div dir={lang === "ar" ? "rtl" : "ltr"}>
               <WeatherCard />
               <Button
                 style={{ color: "white" }}
                 variant="text"
-                onClick={() => alert("Clicked!")}
+                onClick={handleLanguague}
               >
-                Arabic
+                {t("Arabic")}
               </Button>
             </div>
           </Container>
