@@ -3,8 +3,16 @@ import CardContent from "@mui/material/CardContent";
 import Header from "../header/Header";
 import Info from "../info/Info";
 import Divider from "@mui/material/Divider";
+import { fetchWeather } from "../../features/Api/ApiSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 
 export default function WeatherCard() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchWeather());
+  }, [dispatch]);
   return (
     <Card
       sx={{
